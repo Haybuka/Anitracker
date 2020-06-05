@@ -8,6 +8,7 @@ body {
 	margin: 0;
 	background-size: cover;
 	font-size: 16px;
+	font-weight: 400;
 }
 
 .container {
@@ -44,7 +45,7 @@ body {
 }
 
 form small,
-form>img {
+form > img {
 	display: none;
 }
 
@@ -108,14 +109,14 @@ nav {
 	position: absolute;
 	top: 15px;
 	right: 120px;
-	display: none ;
+	display: none;
 }
 
 .error {
 	display: inline;
 }
 
-@media screen and (max-width:375px) {
+@media screen and (max-width: 375px) {
 	.container {
 		display: grid;
 		grid-template-columns: repeat(12, 1fr);
@@ -158,7 +159,7 @@ nav {
 		display: inline;
 	}
 
-	.left>img {
+	.left > img {
 		display: none;
 	}
 
@@ -167,7 +168,6 @@ nav {
 	}
 
 	input {
-
 		padding: 10px 25px;
 		font-size: 16px;
 		height: auto;
@@ -184,5 +184,4 @@ nav {
 		top: 10px;
 		right: 120px;
 	}
-
 }
