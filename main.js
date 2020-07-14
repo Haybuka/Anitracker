@@ -10,5 +10,6 @@ button.addEventListener('click', (e) => {
 	} else {
 		small.classList.remove('error');
 		img.classList.remove('error');
+		console.log(input.value);
 	}
 });
