@@ -1,0 +1,216 @@
+<?php
+include ('config/db_connect.php');
+
+$email ='';
+$errors = array('email' => '');
+	if(isset($_POST['submit'])){
+    // check email
+		if(empty($_POST['email'])){
+			$errors['email'] = 'An email is required';
+		} else{
+			$email = $_POST['email'];
+			if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+				$errors['email'] = 'Email must be a valid email address';
+			}
+    }
+    if(array_filter($errors)){
+			//echo 'errors in form';
+		} else {
+			// escape sql chars
+			$email = mysqli_real_escape_string($conn, $_POST['email']);
+			
+			// create sql
+			$sql = "INSERT INTO emailCollection(email) VALUES('$email')";
+
+			// save to db and check
+			if(mysqli_query($conn, $sql)){
+        // success
+				header('Location: success.php');
+			} else {
+				echo 'query error: '. mysqli_error($conn);
+			}
+			
+		}
+
+	} // end POST check
+  
+	?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+  <!-- https://github.com/Haybuka/Anitracker.git -->
+  <!-- google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+  <title>Anitracker </title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+  <div class="container" id="wrapper">
+    <nav class="wow animate__animated animate__fadeInDown">
+      <a class="navbar-brand" href="#">
+        <img src="images/logo/header logo.png">
+      </a>
+    </nav>
+
+    <header class="gridInit">
+      <section class="" id="headerLeft">
+        <h4>More than 10 million pets are reported lost every year.</h4>
+        <p>
+          <span class="ani">Anitracker</span> is a smart pet tracking app that uses a combination
+          of
+          digital activity monitoring and live location tracking to find lost pets
+        </p>
+        <h1>We Are Coming Soon...</h1>
+        <h3 class="wow animate__animated animate__tada">Get notified when we launch.</h3>
+        <form action="index.php" method="POST">
+          <input type="email" placeholder="Email Address" required id="email" name="email" class="email">
+          <img class="error-icon" src="images/icon-error.svg" alt="error-icon">
+          <input type="submit" value="subscribe" id="submit" name="submit" class="submit">
+          <br />
+          <small class="text-primary">please provide a valid Email </small>
+
+        </form>
+      </section>
+      <section class="wow animate__animated animate__bounceInLeft" id="headerRight">
+        <img src="images/phone/phoneA.svg" alt="" class="imgResize">
+      </section>
+    </header>
+    <section class="gridInit">
+      <article id="articleLeft">
+        <img src="images/phone/phoneB.svg" alt="" class="imgResize">
+      </article>
+      <article id="articleRight">
+        <h3 class="wow animate__animated animate__flipInX infinite">Unique Features</h3>
+        <ul>
+          <li class="wow animate__animated animate__lightSpeedInRight"> <span class="text">Uses Digital
+              Activity Monitoring</span>
+            <span class="tick"><img src="images/tick.svg" alt=""></span></li>
+          <li class="wow animate__animated animate__lightSpeedInRight"> <span class="text">Danger Alert In
+              Case Of Wild Animals</span>
+            <span class="tick"><img src="images/tick.svg" alt=""></span>
+          </li>
+          <li class="wow animate__animated animate__lightSpeedInRight"> <span class="text"> GPS Tracking
+              Device</span>
+            <span class="tick"><img src="images/tick.svg" alt=""></span>
+          </li>
+          <li class="wow animate__animated animate__lightSpeedInRight"><span class="text"> Records Pet Track
+              History</span>
+            <span class="tick"><img src="images/tick.svg" alt=""></span>
+          </li>
+        </ul>
+      </article>
+    </section>
+    <aside>
+      <div id="carouselExampleCaptions" class="carousel slide d-flex align-items-center justify-content-center"
+        data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+          <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="moreText text-center">
+              <img src="images/phone/phoneA.svg" class="d-block" alt="...">
+              <div class="wow animate__animated animate__fadeInLeft">
+                <h4>Tracks</h4>
+                <p>Finding and locating Your Pets where they may be</p>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="moreText">
+              <img src="images/phone/phoneB.svg" class="d-block" alt="...">
+              <div class="">
+                <h4>History</h4>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. </p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="moreText">
+              <img src="images/phone/phoneE.svg" class="d-block" alt="...">
+              <div class="">
+                <h4>third slide label</h4>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. </p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="moreText">
+              <img src="images/phone/phoneD.svg" class="d-block" alt="...">
+              <div class="">
+                <h4>Pet Tracker</h4>
+                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="moreText">
+              <img src="images/phone/phoneE.svg" class="d-block" alt="...">
+              <div class="wow animate__animated animate__fadeInLeft">
+                <h4>third slide label</h4>
+                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </aside>
+
+  </div>
+  <footer class="text-center">
+    <p>Get notified when we launch</p>
+    <form action="index.php" method="POST">
+      <input type="email" placeholder="Email Address" required id="email" name="email" class="email">
+      <img class="error-icon" src="images/icon-error.svg" alt="error-icon">
+      <input type="submit" value="subscribe" id="submit" name="submit"
+        class="submit wow animate__animated animate__rubberBand">
+      <br />
+      <small class="text-primary">please provide a valid Email </small>
+
+    </form>
+    <ul class="text-center wow animate__animated animate__bounceIn">
+      <li class="mx-5"><img src="images/footer/footer logo 1.svg" alt=""></li>
+      <li><img src="images/footer/facebook.svg" alt="" class="logoSized"></li>
+
+      <li><img src="images/footer/twitter.svg" alt="" class="logoSized"></li>
+      <li><img src="images/footer/instagram.svg" alt="" class="logoSized"></li>
+    </ul>
+  </footer>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+  </script>
+  <script src="assets/script/wow.min.js"></script>
+  <script>
+    new WOW().init();
+  </script>
+</body>
+
+</html>
